@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/light_grass_green"
     android:orientation="horizontal"
     android:padding="20dp">
 
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/black" />
+        android:background="@color/white" />
 
     <LinearLayout
         android:id="@+id/id_ll_plan"
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/home_plan_text"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <View
@@ -30,7 +31,7 @@
             android:layout_width="30dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="@color/light_grey"
+            android:background="@color/white"
             android:visibility="invisible" />
 
     </LinearLayout>
@@ -38,7 +39,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/black" />
+        android:background="@color/white" />
 
     <LinearLayout
         android:id="@+id/id_ll_notice"
@@ -52,6 +53,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/home_notice_text"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <View
@@ -59,7 +61,7 @@
             android:layout_width="30dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="@color/light_grey"
+            android:background="@color/white"
             android:visibility="invisible" />
 
     </LinearLayout>
@@ -67,7 +69,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/black" />
+        android:background="@color/white" />
 
     <LinearLayout
         android:id="@+id/id_ll_settings"
@@ -81,6 +83,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/home_settings_text"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <View
@@ -88,7 +91,7 @@
             android:layout_width="30dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="@color/light_grey"
+            android:background="@color/white"
             android:visibility="invisible" />
 
     </LinearLayout>
@@ -96,6 +99,6 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/black" />
+        android:background="@color/white" />
 
 </LinearLayout>

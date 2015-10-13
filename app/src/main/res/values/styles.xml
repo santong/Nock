@@ -5,4 +5,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="WarningText">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

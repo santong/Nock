@@ -4,6 +4,9 @@
     <color name="white">#ffffff</color>
     <color name="light_grey">#aaaaaa</color>
     <color name="light_grass_green">#9BCD9B</color>
+    <color name="grass_green">#ff81cd7f</color>
+    <color name="beige">#FFF8DC</color>
+    <color name="red">#FFFF3635</color>
     <!-- 分割线,背景色等模块颜色 -->
     <color name="bg_grey">#f6f6f6</color>
     <color name="divider_line">#dbdbdb</color>

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -13,6 +14,10 @@ import com.santong.nock.Fragments.NoticeFragment;
 import com.santong.nock.Fragments.PlanFragment;
 import com.santong.nock.Fragments.SettingsFragment;
 import com.santong.nock.R;
+import com.santong.nock.utils.DataBaseHelper;
+import com.santong.nock.utils.DateUtils;
+
+import java.util.Date;
 
 public class HomeActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -125,6 +130,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 setSelect(0);
                 break;
             case R.id.id_ll_notice:
+                mContext.deleteDatabase(DataBaseHelper.DATABASE_NAME);    // 删除数据库
                 v_notice_select.setVisibility(View.VISIBLE);
                 setSelect(1);
                 break;
