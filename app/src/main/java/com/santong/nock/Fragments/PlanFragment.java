@@ -60,7 +60,7 @@ public class PlanFragment extends Fragment implements View.OnClickListener {
 
         mContext = getActivity();
 
-        dbHelper = new DataBaseHelper(mContext, DataBaseHelper.DATABASE_NAME, null, 1);
+        dbHelper = new DataBaseHelper(mContext, null);
     }
 
     private void initView() {

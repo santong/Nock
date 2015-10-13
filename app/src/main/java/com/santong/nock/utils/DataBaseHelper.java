@@ -1,12 +1,16 @@
 package com.santong.nock.utils;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.santong.nock.model.NockPlan;
+
+import java.util.Date;
 
 /**
  * Created by santong.
@@ -16,7 +20,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
-    public static final String DATABASE_NAME = "db_Nock";
+    public static DataBaseHelper dbHelper = null;
+
+    private static final int DATEBASE_VERSION = 1;
+
+    private static final String DATABASE_NAME = "db_Nock";
 
     public static final String TABLE_NAME_PLAN = "nock_Plan";
 
@@ -28,9 +36,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "end_date varchar(20),"
             + "record_days integer)";
 
-    public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DataBaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
+        super(context, DATABASE_NAME, factory, DATEBASE_VERSION);
         mContext = context;
+    }
+
+    public static DataBaseHelper GetInstance(Context context, SQLiteDatabase.CursorFactory factory) {
+        if (dbHelper == null) {
+            dbHelper = new DataBaseHelper(context, factory);
+        }
+        return dbHelper;
     }
 
     @Override
@@ -45,7 +60,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /**
      * 返回单个Plan对象
-     * */
+     */
     public static NockPlan Cursor2Plan(Cursor cursor) {
         NockPlan plan = new NockPlan();
         if (cursor.moveToFirst()) {
@@ -61,5 +76,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             cursor.close();
         }
         return plan;
+    }
+
+    public boolean UpdatePlan(int ID, Date endDate, String description) {
+        String[] args = {String.valueOf(ID)};
+        String endDateStr = DateUtils.formatDate(endDate);
+
+        ContentValues values = new ContentValues();
+        values.put("end_date", endDateStr);
+        values.put("description", description);
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.update(TABLE_NAME_PLAN, values, "id=?", args);
+        return db.update(TABLE_NAME_PLAN, values, "id=?", args) == 1;
     }
 }

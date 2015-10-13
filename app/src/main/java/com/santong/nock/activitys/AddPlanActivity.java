@@ -72,7 +72,7 @@ public class AddPlanActivity extends FragmentActivity implements View.OnClickLis
     private void initData() {
         mContext = this;
 
-        dbHelper = new DataBaseHelper(mContext, DataBaseHelper.DATABASE_NAME, null, 1);
+        dbHelper = new DataBaseHelper(mContext, null);
 
         initDate();     // 初始日期
     }

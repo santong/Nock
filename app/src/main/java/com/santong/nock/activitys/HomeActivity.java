@@ -130,7 +130,6 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 setSelect(0);
                 break;
             case R.id.id_ll_notice:
-                mContext.deleteDatabase(DataBaseHelper.DATABASE_NAME);    // 删除数据库
                 v_notice_select.setVisibility(View.VISIBLE);
                 setSelect(1);
                 break;
