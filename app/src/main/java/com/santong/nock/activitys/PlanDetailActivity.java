@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.santong.nock.R;
+import com.santong.nock.framework.BaseActivity;
 import com.santong.nock.model.NockPlan;
 import com.santong.nock.utils.DataBaseHelper;
 import com.santong.nock.utils.DateUtils;
@@ -23,7 +23,7 @@ import java.util.Date;
  * Created by santong.
  * At 15/10/13 16:42
  */
-public class PlanDetailActivity extends FragmentActivity implements View.OnClickListener {
+public class PlanDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private Context mContext;
 
@@ -43,11 +43,15 @@ public class PlanDetailActivity extends FragmentActivity implements View.OnClick
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan_detail);
 
         initView();
         initData();
         initEvent();
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_plan_detail;
     }
 
     private void initEvent() {
@@ -93,12 +97,12 @@ public class PlanDetailActivity extends FragmentActivity implements View.OnClick
         Date end_Date = DateUtils.getDateFromStr(tv_plan_end_date.getText().toString());
         switch (v.getId()) {
             case R.id.id_btn_save_plan:
-                if (dbHelper.UpdatePlan(id, end_Date, des)){
-                    Toast.makeText(mContext,"更新成功",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(mContext, HomeActivity.class);
-                    startActivity(intent);
-                }else
-                    Toast.makeText(mContext,"保存失败，请检查信息填写",Toast.LENGTH_SHORT).show();
+                if (dbHelper.UpdatePlan(id, end_Date, des)) {
+                    pushActivity(HomeActivity.class);
+                    Toast.makeText(mContext, "更新成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else
+                    Toast.makeText(mContext, "保存失败，请检查信息填写", Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.id_btn_del_plan:

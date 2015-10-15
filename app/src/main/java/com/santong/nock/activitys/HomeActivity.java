@@ -14,12 +14,13 @@ import com.santong.nock.Fragments.NoticeFragment;
 import com.santong.nock.Fragments.PlanFragment;
 import com.santong.nock.Fragments.SettingsFragment;
 import com.santong.nock.R;
+import com.santong.nock.framework.BaseActivity;
 import com.santong.nock.utils.DataBaseHelper;
 import com.santong.nock.utils.DateUtils;
 
 import java.util.Date;
 
-public class HomeActivity extends FragmentActivity implements View.OnClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout ll_plan;
     private LinearLayout ll_notice;
@@ -39,11 +40,15 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
 
         initView();
         initData();
         initEvent();
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_home;
     }
 
     @Override

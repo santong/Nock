@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.santong.nock.R;
+import com.santong.nock.framework.BaseActivity;
 import com.santong.nock.utils.DataBaseHelper;
 import com.santong.nock.utils.DateUtils;
 
@@ -27,7 +28,7 @@ import java.util.Locale;
  * Created by santong.
  * At 15/9/28 16:39
  */
-public class AddPlanActivity extends FragmentActivity implements View.OnClickListener {
+public class AddPlanActivity extends BaseActivity implements View.OnClickListener {
 
     private Context mContext;
 
@@ -61,11 +62,15 @@ public class AddPlanActivity extends FragmentActivity implements View.OnClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_plan);
 
         initView();
         initData();
         initEvent();
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_add_plan;
     }
 
 
