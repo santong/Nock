@@ -90,8 +90,15 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
         else {
             viewHolder.tv_plan_date.setText(DateUtils.formatDate(plan.getStartDate()) + "~" + DateUtils.formatDate(plan.getEndDate()));
         }
-        viewHolder.tv_plan_record_days.setText("还剩" + plan.getRecordDays() + "天");
 
+        // 判断当前计划状态
+        if (plan.getRecordDays() < 0) {
+            viewHolder.tv_plan_record_days.setText("还剩" + 0 + "天");
+            plan.setState(true);
+        } else
+            viewHolder.tv_plan_record_days.setText("还剩" + plan.getRecordDays() + "天");
+
+        // 对当前状态进行操作
         if (plan.isFinished()) {
             viewHolder.btn_record.setText("已完成");
             viewHolder.btn_record.setEnabled(false);
@@ -101,6 +108,7 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
         } else {
             viewHolder.btn_record.setText("打卡");
         }
+        
         return view;
     }
 
@@ -138,16 +146,14 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
 
     private void PlanRecorded(NockPlan plan) {
         int recordDays = plan.getRecordDays();
-        plan.setLastDate(DateUtils.getCurrentDate());
         Date lastDate = plan.getLastDate();
 
-        if (recordDays < 1) {
-            plan.setState(true);
-        } else if (DateUtils.isToday(lastDate)) {
+        if (null != lastDate && !TextUtils.isEmpty(lastDate + "") && DateUtils.isToday(lastDate)) {
             Toast.makeText(mContext, "今天已经打过卡了。", Toast.LENGTH_SHORT).show();
-        } else
+        } else {
             plan.setRecordDays(recordDays - 1);
-
+            plan.setLastDate(DateUtils.getCurrentDate());
+        }
         dbHelper.UpdatePlan(plan);
     }
 
