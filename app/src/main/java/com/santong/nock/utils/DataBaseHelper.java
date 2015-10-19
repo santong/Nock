@@ -1,16 +1,12 @@
 package com.santong.nock.utils;
 
-import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.santong.nock.model.NockPlan;
-
-import java.util.Date;
 
 /**
  * Created by santong.
@@ -34,7 +30,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "description varchar(100),"
             + "start_date varchar(20),"
             + "end_date varchar(20),"
-            + "record_days integer)";
+            + "record_days integer,"
+            + "state integer default 0,"
+            + "last_date varchar(20))";
 
     public DataBaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATEBASE_VERSION);
@@ -65,12 +63,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         NockPlan plan = new NockPlan();
         if (cursor.moveToFirst()) {
             for (int i = 0; i < cursor.getCount(); i++) {
+
                 plan.setPlanId(cursor.getInt(cursor.getColumnIndex("id")));
+
                 plan.setTitle(cursor.getString(cursor.getColumnIndex("title")));
                 plan.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+
                 plan.setStartDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("start_date"))));
                 plan.setEndDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("end_date"))));
+                plan.setLastDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("last_date"))));
+
                 plan.setRecordDays(cursor.getInt(cursor.getColumnIndex("record_days")));
+
+                int flag = cursor.getInt(cursor.getColumnIndex("state"));
+                if (flag == 1)
+                    plan.setState(true);
+                else
+                    plan.setState(false);
+
                 cursor.moveToNext();
             }
             cursor.close();
@@ -78,16 +88,45 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return plan;
     }
 
-    public boolean UpdatePlan(int ID, Date endDate, String description) {
+    public boolean DeletePlan(int ID) {
         String[] args = {String.valueOf(ID)};
-        String endDateStr = DateUtils.formatDate(endDate);
-
-        ContentValues values = new ContentValues();
-        values.put("end_date", endDateStr);
-        values.put("description", description);
 
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLE_NAME_PLAN, values, "id=?", args);
+        db.delete(TABLE_NAME_PLAN, "id=?", args);
+
+        return db.delete(TABLE_NAME_PLAN, "id=?", args) == 0;
+    }
+
+    public boolean UpdatePlan(NockPlan plan) {
+        String[] args = {String.valueOf(plan.getPlanId())};
+        ContentValues values = getPlanValues(plan);
+
+        SQLiteDatabase db = getWritableDatabase();
         return db.update(TABLE_NAME_PLAN, values, "id=?", args) == 1;
+    }
+
+    private ContentValues getPlanValues(NockPlan plan) {
+        ContentValues values = new ContentValues();
+        values.clear();
+        values.put("id", plan.getPlanId());
+        values.put("title", plan.getTitle());
+        values.put("description", plan.getDescription());
+        values.put("start_date", DateUtils.formatDate(plan.getStartDate()));
+        values.put("end_date", DateUtils.formatDate(plan.getEndDate()));
+        values.put("record_days", plan.getRecordDays());
+        if (plan.isFinished())
+            values.put("state", 1);
+        else
+            values.put("state", 0);
+        values.put("last_date", DateUtils.formatDate(plan.getLastDate()));
+
+        return values;
+    }
+
+    public NockPlan getPlan(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME_PLAN + " where id = " + id, null);
+
+        return Cursor2Plan(cursor);
     }
 }
