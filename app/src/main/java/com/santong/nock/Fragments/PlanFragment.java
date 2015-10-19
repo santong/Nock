@@ -1,4 +1,4 @@
-package com.santong.nock.Fragments;
+package com.santong.nock.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,14 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.santong.nock.R;
 import com.santong.nock.activitys.AddPlanActivity;
@@ -88,6 +86,13 @@ public class PlanFragment extends Fragment implements View.OnClickListener {
                 plan.setStartDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("start_date"))));
                 plan.setEndDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("end_date"))));
                 plan.setRecordDays(cursor.getInt(cursor.getColumnIndex("record_days")));
+                int flag = cursor.getInt(cursor.getColumnIndex("state"));
+                if (flag == 1)
+                    plan.setState(true);
+                else
+                    plan.setState(false);
+                plan.setLastDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("last_date"))));
+
                 plans.add(plan);
             } while (cursor.moveToNext());
             cursor.close();

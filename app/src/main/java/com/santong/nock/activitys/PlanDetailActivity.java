@@ -1,10 +1,13 @@
 package com.santong.nock.activitys;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +42,7 @@ public class PlanDetailActivity extends BaseActivity implements View.OnClickList
     private DataBaseHelper dbHelper;
     private SQLiteDatabase db;
     private int id;
+    private NockPlan plan;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +73,7 @@ public class PlanDetailActivity extends BaseActivity implements View.OnClickList
         id = intent.getIntExtra("planId", -1);
 
         if (id >= 0) {
-            Cursor cursor = db.rawQuery("select * from " + DataBaseHelper.TABLE_NAME_PLAN + " where id = " + id, null);
-            NockPlan plan = DataBaseHelper.Cursor2Plan(cursor);
+            plan = dbHelper.getPlan(id);
 
             tv_plan_title.setText(plan.getTitle());
             tv_plan_start_date.setText(DateUtils.formatDate(plan.getStartDate()));
@@ -93,22 +96,57 @@ public class PlanDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        String des = edt_plan_des.getText().toString();
-        Date end_Date = DateUtils.getDateFromStr(tv_plan_end_date.getText().toString());
         switch (v.getId()) {
             case R.id.id_btn_save_plan:
-                if (dbHelper.UpdatePlan(id, end_Date, des)) {
-                    pushActivity(HomeActivity.class);
-                    Toast.makeText(mContext, "更新成功", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else
-                    Toast.makeText(mContext, "保存失败，请检查信息填写", Toast.LENGTH_SHORT).show();
-
+                doSave();
                 break;
             case R.id.id_btn_del_plan:
+                doDelete();
                 break;
             default:
                 break;
         }
+    }
+
+    private void doSave() {
+        String des = edt_plan_des.getText().toString();
+        Date end_Date = DateUtils.getDateFromStr(tv_plan_end_date.getText().toString());
+
+        if (isEmpty(des))
+            plan.setDescription(des);
+        if (isEmpty(end_Date + ""))
+            plan.setEndDate(end_Date);
+        if (dbHelper.UpdatePlan(plan)) {
+            pushActivity(HomeActivity.class);
+            Toast.makeText(mContext, "更新成功", Toast.LENGTH_SHORT).show();
+            finish();
+        } else
+            Toast.makeText(mContext, "保存失败，请检查信息填写", Toast.LENGTH_SHORT).show();
+    }
+
+    private void doDelete() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("注意:");
+        builder.setMessage("确认删除此计划吗？");
+        builder.setPositiveButton("删吧删吧...", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dbHelper.DeletePlan(id)) {
+                    pushActivity(HomeActivity.class);
+                    Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else
+                    Toast.makeText(mContext, "删除失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("我不想删了!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 }

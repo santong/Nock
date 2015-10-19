@@ -26,7 +26,9 @@ public class DateUtils {
      */
     public static String formatDate(Date date) {
         String format = "yyyy-MM-dd";
-        return dateFormat(date, format);
+        if (null != date)
+            return dateFormat(date, format);
+        return "";
     }
 
     /**
@@ -104,4 +106,14 @@ public class DateUtils {
         }
         return date;
     }
+
+    public static String getCurrentDateStr() {
+        Date date = new Date(System.currentTimeMillis());
+        return formatDate(date);
+    }
+
+    public static Date getCurrentDate() {
+        return new Date(System.currentTimeMillis());
+    }
+
 }

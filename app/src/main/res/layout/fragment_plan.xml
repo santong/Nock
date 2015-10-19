@@ -13,7 +13,6 @@
         android:background="@color/white" />
 
     <View
-        android:id="@+id/id_view_above_btn"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divider_deep_line" />
@@ -22,15 +21,16 @@
         android:id="@+id/id_img_btn_add_plan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:background="@color/white"
         android:contentDescription="@string/plan_img_hint"
         android:padding="15dp"
         android:src="@drawable/add_circular" />
 
     <View
+        android:id="@+id/id_view_above_btn"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divider_deep_line" />
+
 
 </LinearLayout>

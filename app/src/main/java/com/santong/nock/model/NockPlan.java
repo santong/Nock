@@ -14,6 +14,8 @@ public class NockPlan {
     private Date startDate;         // 开始日期
     private Date endDate;           // 结束日期
     private String description;     // 计划描述
+    private boolean state;          // 计划状态 True为完成,False为未完成。
+    private Date lastDate;          // 上一次打卡时间
 
     @Override
     public String toString() {
@@ -24,6 +26,8 @@ public class NockPlan {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", description='" + description + '\'' +
+                ", state=" + state +
+                ", lastDate=" + lastDate +
                 '}';
     }
 
@@ -31,13 +35,15 @@ public class NockPlan {
 
     }
 
-    public NockPlan(int planId, int recordDays, String title, Date startDate, Date endDate, String description) {
+    public NockPlan(int planId, int recordDays, String title, Date startDate, Date endDate, String description, boolean state, Date lastDate) {
         this.planId = planId;
         this.recordDays = recordDays;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
+        this.state = state;
+        this.lastDate = lastDate;
     }
 
     public int getRecordDays() {
@@ -88,4 +94,20 @@ public class NockPlan {
         this.planId = planId;
     }
 
+
+    public boolean isFinished() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public Date getLastDate() {
+        return lastDate;
+    }
+
+    public void setLastDate(Date lastDate) {
+        this.lastDate = lastDate;
+    }
 }

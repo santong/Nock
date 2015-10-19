@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -112,6 +113,10 @@ public abstract class BaseActivity extends FragmentActivity {
             progressDialog.dismiss();
             progressDialog = null;
         }
+    }
+
+    protected boolean isEmpty(String str) {
+        return null != str && !TextUtils.isEmpty(str);
     }
 
 

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_plan_list_cell_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:descendantFocusability="blocksDescendants"
-    android:id="@+id/id_plan_list_cell_container">
+    android:background="@color/white"
+    android:descendantFocusability="afterDescendants"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:padding="20dp">
 
         <LinearLayout
+            android:id="@+id/id_plan_list_cell_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:id="@+id/id_plan_list_cell_info">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,21 +57,22 @@
                 android:id="@+id/id_plan_list_cell_info_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="每天学习一个章节。"
                 android:maxLines="1"
+                android:text="每天学习一个章节。"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/id_plan_list_cell_record"
+            android:id="@+id/id_plan_list_cell_btn_record"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
-            android:text="打卡"
+            android:background="@color/green"
             android:focusable="false"
-            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:text="打卡"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
 

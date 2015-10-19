@@ -3,22 +3,16 @@ package com.santong.nock.activitys;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.santong.nock.Fragments.NoticeFragment;
-import com.santong.nock.Fragments.PlanFragment;
-import com.santong.nock.Fragments.SettingsFragment;
+import com.santong.nock.fragments.NoticeFragment;
+import com.santong.nock.fragments.PlanFragment;
+import com.santong.nock.fragments.SettingsFragment;
 import com.santong.nock.R;
 import com.santong.nock.framework.BaseActivity;
-import com.santong.nock.utils.DataBaseHelper;
-import com.santong.nock.utils.DateUtils;
-
-import java.util.Date;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
