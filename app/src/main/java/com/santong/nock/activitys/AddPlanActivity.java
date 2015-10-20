@@ -212,7 +212,7 @@ public class AddPlanActivity extends BaseActivity implements View.OnClickListene
         if (!TextUtils.isEmpty(endDateStr))
             endDate = DateUtils.getDateFromStr(endDateStr);
         if (!TextUtils.isEmpty(startDateStr) && !TextUtils.isEmpty(endDateStr))
-            recordDays = DateUtils.getDaysFrom2Date(startDate, endDate);
+            recordDays = 0;
     }
 
     private void savePlan() {

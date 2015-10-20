@@ -16,6 +16,8 @@
             android:id="@+id/id_plan_list_cell_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -70,10 +72,10 @@
             android:layout_gravity="center_vertical"
             android:background="@color/green"
             android:focusable="false"
-            android:layout_margin="10dp"
-            android:text="打卡"
+            android:padding="5dp"
+            android:text="已打卡100天"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <View
