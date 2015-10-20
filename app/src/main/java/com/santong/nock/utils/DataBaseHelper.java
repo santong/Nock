@@ -24,6 +24,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME_PLAN = "nock_Plan";
 
+    // 计划表
     private static final String CREATE_TABLE_PLAN = "create table " + TABLE_NAME_PLAN + "("
             + "id integer primary key autoincrement,"
             + "title varchar(50),"
@@ -32,7 +33,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "end_date varchar(20),"
             + "record_days integer,"
             + "state integer default 0,"
-            + "last_date varchar(20))";
+            + "last_date varchar(20) default 0)";
+
+    /**
+     * 已完成计划表
+     * 增加打卡率，去掉打卡状态
+     * 点击完成报告就可以将计划从PLAN表里面删掉,转存到PLAN_HISTORY表里
+     */
+    private static final String CREATE_TABLE_PLAN_HISTORY = "create table " + TABLE_NAME_PLAN + "("
+            + "id integer primary key,"
+            + "title varchar(50),"
+            + "description varchar(100),"
+            + "start_date varchar(20),"
+            + "end_date varchar(20),"
+            + "record_days integer,"
+            + "record_rate integer"
+            + ")";
 
     public DataBaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATEBASE_VERSION);
