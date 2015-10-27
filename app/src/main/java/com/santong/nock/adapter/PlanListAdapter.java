@@ -182,7 +182,7 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
         if (recordDays >= (DateUtils.getDaysFrom2Date(plan.getStartDate(), plan.getEndDate()) + 1)) {
             plan.setState(true);
         }
-        
+
         dbHelper.UpdatePlan(plan);
     }
 
