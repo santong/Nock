@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.santong.nock.framework.NockApplication;
 import com.santong.nock.model.NockPlan;
 
 /**
@@ -13,8 +14,6 @@ import com.santong.nock.model.NockPlan;
  * At 15/10/1 23:20
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
-
-    private Context mContext;
 
     public static DataBaseHelper dbHelper = null;
 
@@ -52,10 +51,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public DataBaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATEBASE_VERSION);
-        mContext = context;
     }
 
-    public static DataBaseHelper GetInstance(Context context, SQLiteDatabase.CursorFactory factory) {
+    public synchronized static DataBaseHelper GetInstance(Context context, SQLiteDatabase.CursorFactory factory) {
         if (dbHelper == null) {
             dbHelper = new DataBaseHelper(context, factory);
         }

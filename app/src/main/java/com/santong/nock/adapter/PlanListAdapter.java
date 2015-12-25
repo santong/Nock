@@ -45,7 +45,7 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
         mContext = context;
         resourceId = resource;
         planList = objects;
-        dbHelper = new DataBaseHelper(context, null);
+        dbHelper = DataBaseHelper.GetInstance(mContext, null);
     }
 
     @Override

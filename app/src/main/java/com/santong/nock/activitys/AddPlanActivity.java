@@ -76,7 +76,7 @@ public class AddPlanActivity extends BaseActivity implements View.OnClickListene
     private void initData() {
         mContext = this;
 
-        dbHelper = new DataBaseHelper(mContext, null);
+        dbHelper = DataBaseHelper.GetInstance(mContext, null);
 
         initDate();     // 初始日期
     }

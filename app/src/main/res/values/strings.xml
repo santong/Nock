@@ -11,5 +11,8 @@
     <string name="plan_warn_title_is_empty">任务目标不能为空</string>
     <string name="plan_warn_date_is_empty">请选择开始和结束的日期</string>
     <string name="plan_des_is_empty">暂未添加描述</string>
-
+    <string name="about">关于</string>
+    <string name="history_plan">历史计划</string>
+    <string name="history_notice">历史备忘录</string>
+    <string name="clean_memory">清除缓存</string>
 </resources>

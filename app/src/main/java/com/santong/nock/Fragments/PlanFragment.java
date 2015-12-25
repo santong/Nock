@@ -42,8 +42,6 @@ public class PlanFragment extends Fragment implements View.OnClickListener {
 
     private Context mContext;
 
-    private PlanListAdapter planListAdapter;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan, container, false);
@@ -55,12 +53,12 @@ public class PlanFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
-        planListAdapter = new PlanListAdapter(getActivity(), R.layout.cell_plan_list, plans);
+        PlanListAdapter planListAdapter = new PlanListAdapter(getActivity(), R.layout.cell_plan_list, plans);
         lv_plans.setAdapter(planListAdapter);
 
         mContext = getActivity();
 
-        dbHelper = new DataBaseHelper(mContext, null);
+        dbHelper = DataBaseHelper.GetInstance(mContext, null);
     }
 
     private void initView() {

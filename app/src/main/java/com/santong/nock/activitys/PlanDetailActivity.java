@@ -66,7 +66,7 @@ public class PlanDetailActivity extends BaseActivity implements View.OnClickList
     private void initData() {
         mContext = this;
 
-        dbHelper = new DataBaseHelper(mContext, null);
+        dbHelper = DataBaseHelper.GetInstance(mContext, null);
         db = dbHelper.getWritableDatabase();
 
         Intent intent = getIntent();
