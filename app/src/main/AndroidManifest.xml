@@ -29,6 +29,10 @@
         <activity
             android:name=".activitys.PlanReportActivity"
             android:label="@string/app_name" />
+
+        <activity
+            android:name=".activitys.AddNoticeActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

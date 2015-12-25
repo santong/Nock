@@ -5,18 +5,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.santong.nock.R;
 import com.santong.nock.activitys.AddPlanActivity;
 import com.santong.nock.activitys.PlanDetailActivity;
 import com.santong.nock.adapter.PlanListAdapter;
+import com.santong.nock.framework.BaseFragment;
 import com.santong.nock.model.NockPlan;
 import com.santong.nock.utils.DataBaseHelper;
 import com.santong.nock.utils.DateUtils;
@@ -28,13 +28,13 @@ import java.util.List;
  * Created by santong.
  * At 15/9/27 18:57
  */
-public class PlanFragment extends Fragment implements View.OnClickListener {
+public class PlanFragment extends BaseFragment implements View.OnClickListener {
 
     private View view;
 
     private ListView lv_plans;
 
-    private ImageButton img_btn_add_plan;
+    private FloatingActionButton fa_btn_add_plan;
 
     private List<NockPlan> plans = new ArrayList<>();
 
@@ -52,6 +52,15 @@ public class PlanFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        initData();
+        initPlanList();
+        initPlanListEvent();
+    }
+
     private void initData() {
         PlanListAdapter planListAdapter = new PlanListAdapter(getActivity(), R.layout.cell_plan_list, plans);
         lv_plans.setAdapter(planListAdapter);
@@ -63,11 +72,11 @@ public class PlanFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         lv_plans = (ListView) view.findViewById(R.id.id_lv_plan_lists);
-        img_btn_add_plan = (ImageButton) view.findViewById(R.id.id_img_btn_add_plan);
+        fa_btn_add_plan = (FloatingActionButton) view.findViewById(R.id.id_img_btn_add_plan);
     }
 
     private void initEvent() {
-        img_btn_add_plan.setOnClickListener(this);
+        fa_btn_add_plan.setOnClickListener(this);
     }
 
     // 绑定数据
@@ -111,14 +120,6 @@ public class PlanFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        initData();
-        initPlanList();
-        initPlanListEvent();
-    }
 
     private void initPlanListEvent() {
         lv_plans.setOnItemClickListener(new AdapterView.OnItemClickListener() {

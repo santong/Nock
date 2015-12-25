@@ -32,8 +32,6 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
 
     private int resourceId;
 
-    private View view;
-
     private List<NockPlan> planList;
 
     private DataBaseHelper dbHelper;
@@ -65,6 +63,7 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
 
         ViewHolder viewHolder;
 
+        View view;
         if (convertView == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.cell_plan_list, null);
             viewHolder = new ViewHolder();
@@ -79,21 +78,28 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
 
             viewHolder.btn_record = (Button) view.findViewById(R.id.id_plan_list_cell_btn_record);
 
-            viewHolder.btn_record.setOnClickListener(new lvButtonListener(position, viewHolder));
+            viewHolder.btn_record.setOnClickListener(new lvButtonListener());
 
             view.setTag(viewHolder);
         } else {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
+        viewHolder.btn_record.setTag(position);
 
+        bindValue(viewHolder, plan);
+
+        return view;
+    }
+
+    private void bindValue(ViewHolder viewHolder, NockPlan plan) {
         // 向组件赋值
         if (!TextUtils.isEmpty(plan.getTitle()))
             viewHolder.tv_plan_title.setText(plan.getTitle());
         else
             viewHolder.tv_plan_title.setText("未添加题目");
         if (!TextUtils.isEmpty(plan.getDescription()))
-            viewHolder.tv_plan_des.setText(plan.getDescription() + "");
+            viewHolder.tv_plan_des.setText(plan.getDescription());
         else
             viewHolder.tv_plan_des.setText("未添加描述");
         if (plan.getStartDate() == null && plan.getEndDate() == null)
@@ -116,10 +122,8 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
             viewHolder.ll_plan_cell_container.setBackgroundResource(R.color.bg_grey);
             viewHolder.tv_plan_record_days.setText("完成啦!!");
         } else {
-            viewHolder.btn_record.setText("已打卡" + plan.getRecordDays() + "天");
+            viewHolder.btn_record.setText("已打卡" + String.valueOf(plan.getRecordDays()) + "天");
         }
-
-        return view;
     }
 
 
@@ -136,24 +140,15 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
 
     class lvButtonListener implements View.OnClickListener {
 
-        private int position;
-        private ViewHolder holder;
-
-        lvButtonListener(int pos, ViewHolder viewHolder) {
-            position = pos;
-            holder = viewHolder;
-        }
-
         @Override
         public void onClick(View v) {
-            if (v.getId() == holder.btn_record.getId()) {
-                NockPlan plan = planList.get(position);
-                if (plan.isFinished()) {
-                    PlanReport(plan);
-                } else
-                    PlanRecorded(plan);
-                notifyDataSetChanged();
-            }
+            NockPlan plan = planList.get((int) v.getTag());
+//                Log.e("===", "tag = " + (int) v.getTag() + " ,holder Tag()" + holder.btn_record.getTag());
+            if (plan.isFinished()) {
+                PlanReport(plan);
+            } else
+                PlanRecorded(plan);
+            notifyDataSetChanged();
         }
     }
 
