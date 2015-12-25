@@ -1,86 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_plan_list_cell_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:descendantFocusability="afterDescendants"
-    android:orientation="vertical">
+    android:elevation="2dp"
+    android:padding="20dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/id_plan_list_cell_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/id_plan_list_cell_info"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/id_plan_list_cell_info_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:text="Python学习计划！"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/id_plan_list_cell_info_record_days"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="已打卡8天"
-                    android:textColor="#EE6363"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/id_plan_list_cell_info_date"
-                android:layout_width="match_parent"
+                android:id="@+id/id_plan_list_cell_info_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:maxLines="1"
-                android:text="2015.9.10 ~ 2015.9.20，共10天"
-                android:textSize="14sp" />
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="Python学习计划！" />
 
             <TextView
-                android:id="@+id/id_plan_list_cell_info_des"
-                android:layout_width="match_parent"
+                android:id="@+id/id_plan_list_cell_info_record_days"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="每天学习一个章节。"
-                android:textSize="14sp" />
+                android:textColor="#EE6363"
+                android:textSize="14sp"
+                tools:text="已打卡8天" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/id_plan_list_cell_btn_record"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@color/green"
-            android:focusable="false"
-            android:padding="5dp"
-            android:text="已打卡100天"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/id_plan_list_cell_info_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="14sp"
+            tools:text="2015.9.10 ~ 2015.9.20，共10天" />
+
+        <TextView
+            android:id="@+id/id_plan_list_cell_info_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="14sp"
+            tools:text="每天学习一个章节。" />
+
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider_line" />
-
+    <Button
+        android:id="@+id/id_plan_list_cell_btn_record"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/green"
+        android:elevation="5dp"
+        android:focusable="false"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        tools:text="已打卡100天" />
 </LinearLayout>
+
+

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +16,7 @@ import android.view.View;
  * Created by santong.
  * At 15/10/14 15:49
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected Context mContext;
 
@@ -83,8 +84,6 @@ public abstract class BaseActivity extends FragmentActivity {
 
     /**
      * 展示对话框并设置对话框监听
-     *
-     * @param cancelListener
      */
     protected void showProgressDialog(DialogInterface.OnCancelListener cancelListener) {
         progressDialog = new ProgressDialog(mContext);
@@ -96,8 +95,6 @@ public abstract class BaseActivity extends FragmentActivity {
 
     /**
      * 展示对对话框并设置文字
-     *
-     * @param message
      */
     protected void showProgressDialog(int message) {
         if (progressDialog != null)
