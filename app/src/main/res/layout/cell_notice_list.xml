@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textColor="@color/light_grey"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:text="创建日期:2012/11/22" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textColor="@color/light_grey"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:text="提醒日期:2012/11/22" />
 
         </LinearLayout>
@@ -53,6 +53,8 @@
         android:id="@+id/id_cell_rb_is_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:focusable="false"
         android:gravity="center_horizontal" />
 
 </LinearLayout>

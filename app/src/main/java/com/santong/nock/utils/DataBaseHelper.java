@@ -18,7 +18,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static DataBaseHelper dbHelper = null;
 
-    private static final int DATEBASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_NAME = "db_Nock";
 
@@ -61,7 +61,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "state integer default 0)";
 
     public DataBaseHelper(Context context, SQLiteDatabase.CursorFactory factory) {
-        super(context, DATABASE_NAME, factory, DATEBASE_VERSION);
+        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
     public synchronized static DataBaseHelper GetInstance(Context context, SQLiteDatabase.CursorFactory factory) {
@@ -171,7 +171,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 nockNotice.setTitle(cursor.getString(cursor.getColumnIndex("title")));
                 nockNotice.setContent(cursor.getString(cursor.getColumnIndex("content")));
 
-                nockNotice.setCreateDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("create_date "))));
+                nockNotice.setCreateDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("create_date"))));
                 nockNotice.setNoticeDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("notice_date"))));
 
                 int flag = cursor.getInt(cursor.getColumnIndex("state"));
@@ -212,5 +212,45 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         values.clear();
         return true;
+    }
+
+    private ContentValues getNoticeValue(NockNotice notice) {
+        ContentValues values = new ContentValues();
+        values.clear();
+        values.put("id", notice.getNoticeId());
+        values.put("title", notice.getTitle());
+        values.put("content", notice.getContent());
+        values.put("create_date", DateUtils.formatDate(notice.getCreateDate()));
+        values.put("notice_date", DateUtils.formatDate(notice.getNoticeDate()));
+        if (notice.isComplete())
+            values.put("state", 1);
+        else
+            values.put("state", 0);
+
+        return values;
+    }
+
+    public boolean updateNotice(NockNotice notice) {
+        String[] args = {String.valueOf(notice.getNoticeId())};
+        ContentValues values = getNoticeValue(notice);
+
+        SQLiteDatabase db = getWritableDatabase();
+        return db.update(TABLE_NAME_NOTICE, values, "id=?", args) == 1;
+    }
+
+    public NockNotice getNotice(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME_NOTICE + " where id = " + id, null);
+
+        return Cursor2Notice(cursor);
+    }
+
+    public boolean delNotice(int id) {
+        String[] args = {String.valueOf(id)};
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME_NOTICE, "id=?", args);
+
+        return db.delete(TABLE_NAME_NOTICE, "id=?", args) == 0;
     }
 }

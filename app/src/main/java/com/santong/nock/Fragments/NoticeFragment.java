@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.santong.nock.R;
 import com.santong.nock.activitys.AddNoticeActivity;
+import com.santong.nock.activitys.NoticeDetailActivity;
 import com.santong.nock.adapter.NoticeListAdapter;
 import com.santong.nock.framework.BaseFragment;
 import com.santong.nock.model.NockNotice;
@@ -108,7 +109,9 @@ public class NoticeFragment extends BaseFragment implements View.OnClickListener
         lv_notices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(mContext, NoticeDetailActivity.class);
+                intent.putExtra("noticeId", noticeList.get(position).getNoticeId());
+                startActivity(intent);
             }
         });
     }

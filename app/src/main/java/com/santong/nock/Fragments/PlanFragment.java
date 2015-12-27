@@ -101,7 +101,6 @@ public class PlanFragment extends BaseFragment implements View.OnClickListener {
                 else
                     plan.setState(false);
                 plan.setLastDate(DateUtils.getDateFromStr(cursor.getString(cursor.getColumnIndex("last_date"))));
-
                 plans.add(plan);
             } while (cursor.moveToNext());
             cursor.close();

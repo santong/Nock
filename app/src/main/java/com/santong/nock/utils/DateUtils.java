@@ -1,11 +1,11 @@
 package com.santong.nock.utils;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 /**
  * Created by santong.
@@ -100,7 +100,8 @@ public class DateUtils {
         Date date = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            date = sdf.parse(dateStr);
+            if (!dateStr.isEmpty() && !dateStr.equals("0"))
+                date = sdf.parse(dateStr);
         } catch (Exception e) {
             e.printStackTrace();
         }

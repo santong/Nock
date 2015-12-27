@@ -50,7 +50,7 @@ public class NoticeListAdapter extends ArrayAdapter<NockNotice> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NockNotice nockNotice = noticeList.get(position);
+        NockNotice nockNotice = getItem(position);
         ViewHolder viewHolder;
         View view;
 
@@ -62,6 +62,7 @@ public class NoticeListAdapter extends ArrayAdapter<NockNotice> {
             viewHolder.tv_title = (TextView) view.findViewById(R.id.id_cell_tv_notice_title);
             viewHolder.tv_createDate = (TextView) view.findViewById(R.id.id_cell_tv_create_date);
             viewHolder.tv_noticeDate = (TextView) view.findViewById(R.id.id_cell_tv_notice_date);
+
             viewHolder.rbtn_isComplete = (AppCompatRadioButton) view.findViewById(R.id.id_cell_rb_is_complete);
 
             viewHolder.rbtn_isComplete.setOnClickListener(new lvButtonOnClickListener());
@@ -74,6 +75,8 @@ public class NoticeListAdapter extends ArrayAdapter<NockNotice> {
 
         viewHolder.rbtn_isComplete.setTag(position);
 
+//        Log.e("===Tag", "Tag = " + viewHolder.rbtn_isComplete.getTag());
+
         bindValue(viewHolder, nockNotice);
 
         return view;
@@ -83,12 +86,11 @@ public class NoticeListAdapter extends ArrayAdapter<NockNotice> {
         if (!TextUtils.isEmpty(notice.getTitle()))
             viewHolder.tv_title.setText(notice.getTitle());
         if (null != notice.getCreateDate()) {
-            viewHolder.tv_createDate.setText(DateUtils.formatDate(notice.getCreateDate()));
+            viewHolder.tv_createDate.setText("创建时间:" + DateUtils.formatDate(notice.getCreateDate()));
         }
         if (null != notice.getNoticeDate()) {
-            viewHolder.tv_noticeDate.setText(DateUtils.formatDate(notice.getNoticeDate()));
+            viewHolder.tv_noticeDate.setText("提醒时间:" + DateUtils.formatDate(notice.getNoticeDate()));
         }
-        viewHolder.rbtn_isComplete.setTag(notice.getNoticeId());
         viewHolder.rbtn_isComplete.setChecked(notice.isComplete());
     }
 
@@ -96,12 +98,16 @@ public class NoticeListAdapter extends ArrayAdapter<NockNotice> {
     class lvButtonOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            NockNotice nockNotice = noticeList.get((int) v.getTag() - 1);
+//            Log.e("===", "tag = " + (int) v.getTag());
+
+            NockNotice nockNotice = noticeList.get((int) v.getTag());
 
             if (nockNotice.isComplete())
                 Toast.makeText(mContext, "这个备忘已经完成了", Toast.LENGTH_SHORT).show();
             else
                 nockNotice.setIsComplete(true);
+
+            dbHelper.updateNotice(nockNotice);
             notifyDataSetChanged();
         }
     }

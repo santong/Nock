@@ -48,8 +48,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        setSelect(0);
-        v_plan_select.setVisibility(View.VISIBLE);
     }
 
     private void initEvent() {
@@ -60,6 +58,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private void initData() {
         mContext = this;
+
+        // 初始化页面
+        if (null == fg_plan && null == fg_notice && null == fg_settings)
+            setSelect(0);
     }
 
     private void initView() {
@@ -78,6 +80,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         hideFragment(transaction);
         switch (i) {
             case 0:
+                v_plan_select.setVisibility(View.VISIBLE);
                 if (fg_plan == null) {
                     fg_plan = new PlanFragment();
                     transaction.add(R.id.id_content, fg_plan);
@@ -86,6 +89,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case 1:
+                v_notice_select.setVisibility(View.VISIBLE);
                 if (fg_notice == null) {
                     fg_notice = new NoticeFragment();
                     transaction.add(R.id.id_content, fg_notice);
@@ -94,6 +98,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case 2:
+                v_settings_select.setVisibility(View.VISIBLE);
                 if (fg_settings == null) {
                     fg_settings = new SettingsFragment();
                     transaction.add(R.id.id_content, fg_settings);
@@ -125,15 +130,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         resetView();
         switch (v.getId()) {
             case R.id.id_ll_plan:
-                v_plan_select.setVisibility(View.VISIBLE);
                 setSelect(0);
                 break;
             case R.id.id_ll_notice:
-                v_notice_select.setVisibility(View.VISIBLE);
                 setSelect(1);
                 break;
             case R.id.id_ll_settings:
-                v_settings_select.setVisibility(View.VISIBLE);
                 setSelect(2);
                 break;
             default:

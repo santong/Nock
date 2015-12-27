@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,10 +59,9 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         NockPlan plan = getItem(position);
-
         ViewHolder viewHolder;
-
         View view;
+
         if (convertView == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.cell_plan_list, null);
             viewHolder = new ViewHolder();
@@ -86,6 +84,8 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.btn_record.setTag(position);
+
+//        Log.e("===", "plan_tag1 = " + (int) viewHolder.btn_record.getTag());
 
         bindValue(viewHolder, plan);
 
@@ -143,7 +143,7 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
         @Override
         public void onClick(View v) {
             NockPlan plan = planList.get((int) v.getTag());
-//                Log.e("===", "tag = " + (int) v.getTag() + " ,holder Tag()" + holder.btn_record.getTag());
+//            Log.e("===", "plan_tag2 = " + (int) v.getTag());
             if (plan.isFinished()) {
                 PlanReport(plan);
             } else
@@ -164,7 +164,7 @@ public class PlanListAdapter extends ArrayAdapter<NockPlan> {
         int recordDays = plan.getRecordDays();
         Date lastDate = plan.getLastDate();
 
-        Log.e("recordDays", "" + recordDays);
+//        Log.e("recordDays", "" + recordDays);
 
         if (null != lastDate && !TextUtils.isEmpty(lastDate + "") && DateUtils.isToday(lastDate)) {
             Toast.makeText(mContext, "今天已经打过卡了。", Toast.LENGTH_SHORT).show();
