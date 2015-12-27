@@ -37,6 +37,10 @@
         <activity
             android:name=".activitys.NoticeDetailActivity"
             android:label="@string/app_name" />
+
+        <activity
+            android:name=".activitys.AboutNockActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

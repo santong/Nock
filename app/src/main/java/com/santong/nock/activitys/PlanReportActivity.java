@@ -29,6 +29,6 @@ public class PlanReportActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         NockPlan plan = bundle.getParcelable("plan");
-        textView.setText(plan.toString() + "");
+        textView.setText("施工中... ...");
     }
 }
